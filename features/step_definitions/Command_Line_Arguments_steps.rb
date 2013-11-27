@@ -40,3 +40,13 @@ Then /^it should overwrite the existing file$/ do
     (@pre_status == @post_status).should == false
     `rm testfile2.txt*`
 end
+
+When /^I run bak with the prefix option and the text "(.*?)"$/ do |pre_text|
+    @stdin, @stdout, @stderr, @wait_th = Open3.popen3("bin/bak -s #{pre_text} #{@filename}")
+end
+
+Then /^there should be a copy of the file with "(.*?)" on the start$/ do |prefix|
+    sleep(0.5)
+    File.exists?("#{prefix}#{@filename}.bak").should == true
+    `rm *#{@filename}*`
+end

@@ -29,3 +29,23 @@ describe "name generation with the postfix method" do
         end
     end
 end
+
+describe "name generation with the prefix method" do
+    describe "default behavior" do
+        let(:file) { "testfile.txt" }
+        let(:generator) { BackupNameGenerator.new(file, :prefix => "test") }
+
+        it "should append test_ to the start of the filename and .bak to the end" do
+            generator.start.should == "test_#{file}.bak"
+        end
+    end
+
+    describe "with the no_bak option as well" do
+        let(:file) { "testfile.txt" }
+        let(:generator) { BackupNameGenerator.new(file, :prefix => "test", :no_bak => true) }
+
+        it "should append test_ to the start of the filename and no .bak at the end" do
+            generator.start.should == "test_#{file}"
+        end
+    end
+end

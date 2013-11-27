@@ -18,6 +18,11 @@ Feature: CommandLine Options to customize performance
         When I run bak with the postfix option and the text "post" and the no_bak option
         Then there should be a copy of the file with "_post" on the end
 
+    Scenario: adding a prefix to the filename
+        Given I have the file "testfile2.txt"
+        When I run bak with the prefix option and the text "pre"
+        Then there should be a copy of the file with "pre_" on the start
+
     Scenario: overwriting an existing file with the --force/-f option
         Given I have the file "testfile2.txt"
         And I have the file "testfile2.txt.bak"

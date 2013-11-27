@@ -15,6 +15,7 @@ class BackupNameGenerator
         if @options != {}
             if @options[:date] then filename = _with_date(filename) end
             if @options[:postfix] then filename = _with_postfix(filename, @options[:postfix]) end
+            if @options[:prefix] then filename = _with_prefix(filename, @options[:prefix]) end
         else
             filename = _basic(filename)
         end
@@ -34,6 +35,10 @@ private
 
     def _with_postfix(filename, postfix)
         return "#{filename}_#{postfix}"
+    end
+
+    def _with_prefix(filename, prefix)
+        return "#{prefix}_#{filename}"
     end
 
     def _get_date
