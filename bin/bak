@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require 'bak'
+require 'optparse'
+
+options = {}
+option_parser = OptionParser.new do |opts|
+    opts.on("-d", "--date") do
+        options[:date] = true
+    end
+
+    opts.on("-f", "--force") do
+        options[:force] = true
+    end
+
+    opts.on("-n", "--no-bak") do
+        options[:no_bak] = true
+    end
+
+    opts.on("-p POSTFIX") do |postfix|
+        options[:postfix] = postfix
+    end
+end
+option_parser.parse!
+
+# set defaults for values that weren't provided
+options[:force] ||= false
+options[:no_bak] ||= false
+
+if ARGV.length > 0
+    filenames = ARGV
+else
+    filenames = STDIN.read().split("\n")
+end
+
+filenames.each do |filename|
+    generator = BackupNameGenerator.new(filename, options)
+    copier = FileCopier.new(filename, generator)
+    copier.start
+end
