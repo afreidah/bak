@@ -21,6 +21,10 @@ option_parser = OptionParser.new do |opts|
     opts.on("-p POSTFIX") do |postfix|
         options[:postfix] = postfix
     end
+
+    opts.on("-s PREFIX") do |prefix|
+        options[:prefix] = prefix
+    end
 end
 option_parser.parse!
 
