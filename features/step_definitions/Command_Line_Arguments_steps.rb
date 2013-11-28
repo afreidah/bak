@@ -11,7 +11,7 @@ end
 
 Then /^there should be a copy of the file with todays date and \.bak$/ do
     date = Time.new.strftime("%Y-%m-%d")
-    sleep(0.5)
+    sleep(1)
     File.file?("#{@filename}.#{date}.bak").should == true
     `rm #{@filename}*`
  end
@@ -21,7 +21,7 @@ When /^I run bak with the postfix option and text "(.*?)"$/ do |post_text|
 end
 
 Then /^there should be a copy of the file with "(.*?)" on the end$/ do |postfix|
-    sleep(0.5)
+    sleep(1)
     File.exists?("#{@filename}#{postfix}").should be_true
     `rm #{@filename}*`
 end
@@ -46,7 +46,7 @@ When /^I run bak with the prefix option and the text "(.*?)"$/ do |pre_text|
 end
 
 Then /^there should be a copy of the file with "(.*?)" on the start$/ do |prefix|
-    sleep(0.5)
+    sleep(1)
     File.exists?("#{prefix}#{@filename}.bak").should == true
     `rm *#{@filename}*`
 end
