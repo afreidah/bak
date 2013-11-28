@@ -37,6 +37,7 @@ PLATFORMS
 
 DEPENDENCIES
   cucumber
+  diff-lcs (= 1.1.3)
   pry
   rake
   rspec
