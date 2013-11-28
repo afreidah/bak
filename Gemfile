@@ -2,4 +2,6 @@ gem 'rspec'
 gem 'cucumber'
 gem 'simplecov'
 gem 'pry'
-
+gem 'rake'
+require 'cucumber'
+require 'cucumber/rake/task'
