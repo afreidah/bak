@@ -64,10 +64,18 @@ end
 
 describe "name generation with the replace method" do
     let(:file) { "testfile.txt" }
-    let(:generator) { BackupNameGenerator.new(file, :replace => {:pattern => "test", :replace => "production"}) }
+    let(:generator) { BackupNameGenerator.new(file, :replace => {:pattern => Regexp.new("test"), :replace => "production"}) }
 
     it "should replace the word test with production with the _with_replace method" do
-        generator.send(:_with_replace, file, :pattern => "test", :replace => "production").should == "productionfile.txt"
+        generator.send(:_with_replace, file, :pattern => Regexp.new("test"), :replace => "production").should == "productionfile.txt"
+    end
+
+    it "should allow for regular expressions" do
+        generator.send(:_with_replace, "file.2008-11-22", pattern: Regexp.new('[0-9]{4}-[0-9]{2}-[0-9]{2}'), replace: "2013-33-44").should == "file.2013-33-44"
+    end
+
+    it "should be able to handle backslashes" do
+        generator.send(:_with_replace, "file.2008-11-22", pattern: Regexp.new('\d{4}-\d{2}-\d{2}'), replace: "2013-33-44").should == "file.2013-33-44"
     end
 
     it "should replace the word test with production in the filename" do
