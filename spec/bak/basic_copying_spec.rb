@@ -10,24 +10,6 @@ describe "backup name generator" do
     end
 end
 
-describe "bakFile" do
-    let(:file) { "testfile.txt" }
-    let(:bakfile) { BakFile.new(file) }
-
-    describe "existence of file" do
-        it "doesn't exist" do
-            FileUtils.rm(file) if File.file?(file)
-            bakfile.exist?.should == false
-        end
-
-        it "does exist" do
-            FileUtils.touch(file)
-            bakfile.exist?.should == true
-            FileUtils.rm(file)
-        end
-    end
-end
-
 describe "copier" do
     let(:file) { "testfile.txt" }
     let(:options) { {:force => false, :no_bak => false} }

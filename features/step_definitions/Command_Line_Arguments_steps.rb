@@ -50,3 +50,21 @@ Then /^there should be a copy of the file with "(.*?)" on the start$/ do |prefix
     File.exists?("#{prefix}#{@filename}.bak").should == true
     `rm *#{@filename}*`
 end
+
+Given /^I want to replace "(.*?)" with "(.*?)"$/ do |pattern, replacement_pattern|
+    @pattern = pattern
+    @replacement = replacement_pattern
+end
+
+When /^I run bak with the replacement option$/ do
+    @stdin, @stdout, @stderr, @wait_th = Open3.popen3("bin/bak -R #{@pattern} -R #{@replacement} #{@filename}")
+end
+
+Then /^there should be a file called "(.*?)"$/ do |newfile|
+    sleep(5)
+    File.exist?(newfile).should == true
+    `rm #{newfile}`
+    `rm #{@filename}*`
+end
+
+
