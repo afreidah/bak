@@ -1,5 +1,5 @@
 class BackupNameGenerator
-    attr_reader :options
+    attr_accessor :options
 
     def initialize(filename, options_hash)
         @filename = filename
@@ -16,8 +16,7 @@ class BackupNameGenerator
             if @options[:date] then filename = _with_date(filename) end
             if @options[:postfix] then filename = _with_postfix(filename, @options[:postfix]) end
             if @options[:prefix] then filename = _with_prefix(filename, @options[:prefix]) end
-        else
-            filename = _basic(filename)
+            if @options[:replace] then filename = _with_replace(filename, @options[:replace]) end
         end
         unless @options[:no_bak] then filename = "#{filename}.bak" end
 
@@ -25,10 +24,6 @@ class BackupNameGenerator
     end
 
 private
-    def _basic(filename)
-        return "#{filename}"
-    end
-
     def _with_date(filename)
         return "#{filename}.#{_get_date}"
     end
@@ -39,6 +34,12 @@ private
 
     def _with_prefix(filename, prefix)
         return "#{prefix}_#{filename}"
+    end
+
+    def _with_replace(filename, replace_info)
+        pattern = replace_info[:pattern]
+        replace = replace_info[:replace]
+        return filename.gsub(pattern, replace)
     end
 
     def _get_date
