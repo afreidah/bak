@@ -1,5 +1,5 @@
 class BackupNameGenerator
-    attr_accessor :options
+    attr_accessor :options, :filename
 
     def initialize(filename, options_hash)
         @filename = filename
@@ -8,6 +8,10 @@ class BackupNameGenerator
 
     def [](item)
         @options[item]
+    end
+
+    def []=(k, v)
+        @options[k] = v
     end
 
     def start
