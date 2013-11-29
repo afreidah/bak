@@ -1,8 +1,9 @@
 class FileCopier
     attr_accessor :generator, :start_file, :end_file
-    def initialize(name, backupNameGenerator)
+    def initialize(backupNameGenerator, output_stream)
         @generator = backupNameGenerator
-        @start_file = name
+        @output = output_stream
+        @start_file = @generator.filename
         @end_file = @generator.start
     end
 
@@ -18,7 +19,7 @@ class FileCopier
     def start
         errors = check_errors
         if errors
-            STDERR.puts errors
+            @output.puts errors
         else
             FileUtils.cp_r(start_file, end_file)
         end
