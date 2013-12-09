@@ -4,8 +4,8 @@ describe "basic copying" do
     before(:each) do
         @file = "testfile.txt"
         @options = {:force => false, :no_bak => false}
-        @generator = BackupNameGenerator.new(@file, @options)
-        @copier = FileCopier.new(@generator, double('stderr'))
+        @generator = Bak::BackupNameGenerator.new(@file, @options)
+        @copier = Bak::FileCopier.new(@generator, double('stderr'))
         FileUtils.touch(@file)
     end
 

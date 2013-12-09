@@ -5,9 +5,9 @@ require "rspec/expectations"
 describe "Copier" do
     before(:each) do
         @file = "testfile.txt"
-        @generator = BackupNameGenerator.new(@file, {})
+        @generator = Bak::BackupNameGenerator.new(@file, {})
         @output = double('stdout')
-        @copier = FileCopier.new(@generator, @output)
+        @copier = Bak::FileCopier.new(@generator, @output)
         FileUtils.touch(@file)
     end
 
