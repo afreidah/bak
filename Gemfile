@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rspec'
+gem 'simplecov', :group => :test
+gem 'simplecov-rcov', :group => :test
 gem 'cucumber'
-gem 'simplecov'
+gem 'rspec'
+gem 'builder'
 gem 'pry'
-
