@@ -1,3 +1,6 @@
+$:.unshift File.expand_path("../lib", __FILE__)
+require 'bak/version'
+
 Gem::Specification.new do |s|
   s.name        = 'bak'
   s.version     = Bak::VERSION
