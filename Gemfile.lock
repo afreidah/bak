@@ -38,6 +38,7 @@ GEM
     simplecov-rcov (0.2.3)
       simplecov (>= 0.4.1)
     slop (3.4.7)
+    syntax (1.0.0)
 
 PLATFORMS
   ruby
@@ -53,3 +54,4 @@ DEPENDENCIES
   rspec
   simplecov
   simplecov-rcov
+  syntax

@@ -10,3 +10,4 @@ gem 'bundle'
 gem 'pry'
 gem 'rake'
 gem "ci_reporter", "~> 1.9.0"
+gem 'syntax'
