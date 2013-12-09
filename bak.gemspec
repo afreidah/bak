@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.description = "quickly create backup files and directories with extensions, prefixes, replacements, and other patterns"
   s.authors     = ["Alex Freidah"]
   s.email       = 'alex.freidah@gmail.com'
-  s.files       = ["lib/bak.rb", "lib/bak/copier.rb", "lib/bak/backup_name_generator.rb"]
+  s.files       = ["lib/bak.rb", "lib/bak/copier.rb", "lib/bak/backup_name_generator.rb", "lib/bak/version.rb"]
   s.homepage    = 'http://bak.com'
   s.license       = 'MIT'
   s.executables = ["bak"]
