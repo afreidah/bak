@@ -47,7 +47,7 @@ else
 end
 
 filenames.each do |filename|
-    generator = BackupNameGenerator.new(filename, options)
-    copier = FileCopier.new(generator, STDERR)
+    generator = Bak::BackupNameGenerator.new(filename, options)
+    copier = Bak::FileCopier.new(generator, STDERR)
     copier.start
 end
