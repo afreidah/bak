@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-require 'rspec/core/rake_task'
-require 'cucumber'
-require 'cucumber/rake/task'
-
-RSpec::Core::RakeTask.new(:spec)
-
-Cucumber::Rake::Task.new(:features) do |t|
-    t.cucumber_opts = "features --format pretty"
-=======
 gem 'ci_reporter'
 require 'ci/reporter/rake/cucumber'
 require 'ci/reporter/rake/rspec'
@@ -35,5 +25,4 @@ namespace :spec do
     t.pattern = 'spec/**/*.rb'
     t.rcov = true
   end
->>>>>>> master
 end
