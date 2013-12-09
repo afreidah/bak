@@ -28,3 +28,6 @@ namespace :spec do
     t.rcov = true
   end
 end
+
+task :test => :spec
+task :test => :features
