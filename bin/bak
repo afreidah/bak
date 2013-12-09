@@ -5,6 +5,7 @@ require 'bak'
 require 'optparse'
 
 options = {}
+patternCount = 0
 option_parser = OptionParser.new do |opts|
     opts.on("-d", "--date") do
         options[:date] = true
@@ -21,6 +22,17 @@ option_parser = OptionParser.new do |opts|
     opts.on("-p POSTFIX") do |postfix|
         options[:postfix] = postfix
     end
+
+    opts.on("-s PREFIX") do |prefix|
+        options[:prefix] = prefix
+    end
+
+    opts.on("-R TEXT") do |text|
+        options[:replace] ||= {}
+        patternCount += 1
+        options[:replace][:pattern] = Regexp.new(text) if patternCount == 1
+        options[:replace][:replace] = text if patternCount == 2
+    end
 end
 option_parser.parse!
 
@@ -36,6 +48,6 @@ end
 
 filenames.each do |filename|
     generator = BackupNameGenerator.new(filename, options)
-    copier = FileCopier.new(filename, generator)
+    copier = FileCopier.new(generator, STDERR)
     copier.start
 end

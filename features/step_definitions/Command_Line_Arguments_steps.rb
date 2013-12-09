@@ -11,7 +11,7 @@ end
 
 Then /^there should be a copy of the file with todays date and \.bak$/ do
     date = Time.new.strftime("%Y-%m-%d")
-    sleep(0.5)
+    sleep(1)
     File.file?("#{@filename}.#{date}.bak").should == true
     `rm #{@filename}*`
  end
@@ -21,7 +21,7 @@ When /^I run bak with the postfix option and text "(.*?)"$/ do |post_text|
 end
 
 Then /^there should be a copy of the file with "(.*?)" on the end$/ do |postfix|
-    sleep(0.5)
+    sleep(1)
     File.exists?("#{@filename}#{postfix}").should be_true
     `rm #{@filename}*`
 end
@@ -40,3 +40,31 @@ Then /^it should overwrite the existing file$/ do
     (@pre_status == @post_status).should == false
     `rm testfile2.txt*`
 end
+
+When /^I run bak with the prefix option and the text "(.*?)"$/ do |pre_text|
+    @stdin, @stdout, @stderr, @wait_th = Open3.popen3("bin/bak -s #{pre_text} #{@filename}")
+end
+
+Then /^there should be a copy of the file with "(.*?)" on the start$/ do |prefix|
+    sleep(1)
+    File.exists?("#{prefix}#{@filename}.bak").should == true
+    `rm *#{@filename}*`
+end
+
+Given /^I want to replace "(.*?)" with "(.*?)"$/ do |pattern, replacement_pattern|
+    @pattern = pattern
+    @replacement = replacement_pattern
+end
+
+When /^I run bak with the replacement option$/ do
+    @stdin, @stdout, @stderr, @wait_th = Open3.popen3("bin/bak -R #{@pattern} -R #{@replacement} #{@filename}")
+end
+
+Then /^there should be a file called "(.*?)"$/ do |newfile|
+    sleep(5)
+    File.exist?(newfile).should == true
+    `rm #{newfile}`
+    `rm #{@filename}*`
+end
+
+
