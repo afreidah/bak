@@ -10,11 +10,13 @@ require 'cucumber/rake/task'
 RSpec::Core::RakeTask.new(:spec) do |t|
   Rake::Task['ci:setup:rspec'].invoke
   t.rspec_opts = ["--color"]
+  t.rspec_opts = ["-r ./junit.rb -f JUnit -o spec/reports/results.xml"]
 end
 
-Cucumber::Rake::Task.new(:features) do
+Cucumber::Rake::Task.new(:features) do |t|
   Rake::Task['ci:setup:cucumber_report_cleanup'].invoke
   ENV['CUCUMBER_OPTS'] = "#{ENV['CUCUMBER_OPTS']} -f CI::Reporter::Cucumber"
+  t.cucumber_opts = "-f junit --out features/reports/ -f pretty"
 end
 
 # setup RCov code coverage test
