@@ -1,6 +1,17 @@
+<<<<<<< HEAD
 *rb..swp
 *rb..swo
 *.swp
 *~
 coverage/
 notes
+=======
+*.swp
+coverage/
+coverage/*
+/bin/notes
+spec/reports/
+spec/reports/*
+features/reports/
+features/repots/*
+>>>>>>> master
