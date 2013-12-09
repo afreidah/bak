@@ -7,3 +7,4 @@ gem 'rspec'
 gem 'builder'
 gem 'pry'
 gem 'rake'
+gem "ci_reporter", "~> 1.9.0"
