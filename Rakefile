@@ -6,6 +6,8 @@ require 'cucumber'
 require 'rspec/core/rake_task'
 require 'cucumber/rake/task'
 
+require 'bundler/gem_tasks'
+
 # setup rspec tests
 RSpec::Core::RakeTask.new(:spec) do |t|
   Rake::Task['ci:setup:rspec'].invoke
