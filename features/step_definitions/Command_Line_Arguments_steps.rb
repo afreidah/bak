@@ -67,4 +67,41 @@ Then /^there should be a file called "(.*?)"$/ do |newfile|
     `rm #{@filename}*`
 end
 
+Given /^I have a folder in the working directory called "(.*?)"$/ do |folder_name|
+    @folder_name = folder_name
+    `mkdir #{folder_name}`
+end
 
+When /^I run bak with the target\-path option$/ do
+    @stdin, @stdout, @stderr, @wait_th = Open3.popen3("bin/bak -t #{@folder_name} #{@filename}")
+end
+
+Then /^it should create the file "(.*?)"$/ do |filename|
+    sleep(5)
+    File.exist?(filename).should == true
+    `rm #{@filename}`
+    `rm -rf #{@folder_name}`
+end
+
+Given /^I do not have a folder in the working directory called "(.*?)"$/ do |target_path|
+	@folder_name = target_path
+	Dir.rmdir(@folder_name) if Dir.exist?(@folder_name)
+end
+
+Then /^it should generate a target path doesn't exist error$/ do
+	@output = @stderr.read()
+	@output.should include("#{@folder_name} directory does not exist")
+end
+
+When /^I run bak with the target\-path option and the create option$/ do
+	@stdin, @stdout, @stderr, @wait_th = Open3.popen3("bin/bak -ct #{@folder_name} #{@filename}")
+end
+
+When /^I run bak with the create option and no target_path option$/ do
+	 @stdin, @stdout, @stderr, @wait_th = Open3.popen3("bin/bak -c #{@filename}")
+end
+
+Then /^it should generate a no target path provided error$/ do
+	@output = @stderr.read()
+	@output.should include("please specify target directory to create with the -t option")
+end

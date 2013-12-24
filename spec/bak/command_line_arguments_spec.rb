@@ -66,6 +66,24 @@ describe "commandline options" do
         end
     end
 
+    describe "name generation with the target_path method" do
+		before(:each) do
+			@target = "test"
+			@generator[:target_path] = @target
+			`mkdir test`
+		end
+
+		after(:each) do
+			`rm -rf test`
+		end
+
+		describe "default behavior" do
+			it "should place the file in the target path directory" do
+				@generator.send(:_with_target_path, @file, @target).should == "#{@target}/#{@file}"
+			end
+		end
+	end
+
     describe "name generation with the replace method" do
         before(:each) do
             @before = 0

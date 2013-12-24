@@ -15,6 +15,12 @@ module Bak
             if File.exists?(@end_file) && !@generator[:force]
                 return "#{end_file}: File already exists"
             end
+            if @generator[:create_path] == true
+              FileUtils::mkdir_p @generator[:target_path]
+            end
+            if @generator[:target_path] && !File.directory?(@generator[:target_path])
+              return "#{@generator[:target_path]} directory does not exist"
+            end
         end
 
         def start
