@@ -27,6 +27,14 @@ option_parser = OptionParser.new do |opts|
         options[:prefix] = prefix
     end
 
+    opts.on("-t TARGETPATH") do |path|
+	    options[:target_path] = path
+    end	
+
+    opts.on("-c", "--create") do
+      options[:create_path] = true
+    end
+
     opts.on("-R TEXT") do |text|
         options[:replace] ||= {}
         patternCount += 1
@@ -39,6 +47,12 @@ option_parser.parse!
 # set defaults for values that weren't provided
 options[:force] ||= false
 options[:no_bak] ||= false
+
+# make sure the create option is always paired with the target_path option
+if options[:create_path] && !options[:target_path]
+  STDERR.puts("please specify target directory to create with the -t option")
+  exit 1
+end
 
 if ARGV.length > 0
     filenames = ARGV
