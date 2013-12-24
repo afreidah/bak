@@ -9,3 +9,4 @@ features/reports/
 features/repots/*
 *.gem
 *.swo
+tags
