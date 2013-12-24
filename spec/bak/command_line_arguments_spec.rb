@@ -4,7 +4,7 @@ describe "commandline options" do
     before(:each) do
         @file = "testfile.txt"
         @date = Time.new.strftime("%Y-%m-%d") 
-        @generator = BackupNameGenerator.new(@file, {})
+        @generator = Bak::BackupNameGenerator.new(@file, {})
     end
 
     describe "name generation with the date method" do
@@ -75,7 +75,7 @@ describe "commandline options" do
             @replace_text = { pattern: Regexp.new("test"), replace: "production" }
             @replace_reg1 = { pattern: Regexp.new('[0-9]{4}-[0-9]{2}-[0-9]{2}'), replace: "2013-33-44" }
             @replace_reg2 = { pattern: Regexp.new('\d{4}-\d{2}-\d{2}'), replace: "2013-33-44" }
-            @generator = BackupNameGenerator.new(@file, replace: @replace_text)
+            @generator = Bak::BackupNameGenerator.new(@file, replace: @replace_text)
         end
 
         it "should replace the word test with production with the _with_replace method" do
