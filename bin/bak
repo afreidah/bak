@@ -41,6 +41,11 @@ option_parser = OptionParser.new do |opts|
         options[:replace][:pattern] = Regexp.new(text) if patternCount == 1
         options[:replace][:replace] = text if patternCount == 2
     end
+
+    opts.on("-v", "--version") do
+      STDOUT.puts "Bak version: #{Bak::VERSION}"
+      exit 0
+    end
 end
 option_parser.parse!
 
