@@ -28,8 +28,12 @@ option_parser = OptionParser.new do |opts|
     end
 
     opts.on("-t TARGETPATH") do |path|
-	options[:target_path] = path
+	    options[:target_path] = path
     end	
+
+    opts.on("-c", "--create") do
+      options[:create_path] = true
+    end
 
     opts.on("-R TEXT") do |text|
         options[:replace] ||= {}

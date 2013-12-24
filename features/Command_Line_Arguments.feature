@@ -30,10 +30,22 @@ Feature: CommandLine Options to customize performance
         Then it should overwrite the existing file
 
     Scenario: giving a target path to put the backup file into
-	Given I have the file "testfile2.txt"
-	And I have a folder in the working directory called "test"
-	When I run bak with the target-path option
-	Then it should create the file "test/testfile2.txt.bak"
+		Given I have the file "testfile2.txt"
+		And I have a folder in the working directory called "test"
+		When I run bak with the target-path option
+		Then it should create the file "test/testfile2.txt.bak"
+
+	Scenario: giving a target path that doesn't exist
+		Given I have the file "testfile2.txt"
+		And I do not have a folder in the working directory called "test"
+		When I run bak with the target-path option
+		Then it should generate a target path doesn't exist error
+
+	Scenario: giving a target path that doesn't exist using the create option
+		Given I have the file "testfile2.txt"
+		And I do not have a folder in the working directory called "test"
+		When I run bak with the target-path option and the create option
+		Then it should create the file "test/testfile2.txt.bak"
 
     Scenario Outline: using regular expressions to do replacements on the filenames
         Given I have the file <filename>

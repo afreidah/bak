@@ -36,4 +36,27 @@ describe "Copier" do
         @output.should_receive(:puts).with("#{@copier.end_file}: File already exists")
         @copier.start
     end
+
+	describe "target path option support" do
+		after(:each) do
+			new_file = "#{@generator[:target_path]}/#{@file}.bak"
+			FileUtils.rm(new_file) if File.file?(new_file)
+			Dir.rmdir @generator[:target_path] if Dir.exist? @generator[:target_path] 
+		end
+
+		it "should tell you that the target path doesn't exist when using -t option" do
+			@generator[:target_path] = "path_that_doesnt_exist"
+			@copier = Bak::FileCopier.new(@generator, @output)
+			@output.should_receive(:puts).with("#{@generator[:target_path]} directory does not exist")
+			@copier.start
+		end
+
+		it "should create the target path if the create option is passed in" do
+			@generator[:target_path] = "path_that_doesnt_exist"
+			@generator[:create_path] = true
+			@copier = Bak::FileCopier.new(@generator, @output)
+			@copier.start
+			File.exist?("#{@generator[:target_path]}/#{@file}.bak").should == true
+		end
+	end
 end

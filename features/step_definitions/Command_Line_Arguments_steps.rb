@@ -83,4 +83,16 @@ Then /^it should create the file "(.*?)"$/ do |filename|
     `rm -rf #{@folder_name}`
 end
 
+Given /^I do not have a folder in the working directory called "(.*?)"$/ do |target_path|
+	@folder_name = target_path
+	Dir.rmdir(@folder_name) if Dir.exist?(@folder_name)
+end
 
+Then /^it should generate a target path doesn't exist error$/ do
+	@output = @stderr.read()
+	@output.should include("#{@folder_name} directory does not exist")
+end
+
+When /^I run bak with the target\-path option and the create option$/ do
+	@stdin, @stdout, @stderr, @wait_th = Open3.popen3("bin/bak -ct #{@folder_name} #{@filename}")
+end
