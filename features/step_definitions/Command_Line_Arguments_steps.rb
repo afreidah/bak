@@ -67,4 +67,20 @@ Then /^there should be a file called "(.*?)"$/ do |newfile|
     `rm #{@filename}*`
 end
 
+Given /^I have a folder in the working directory called "(.*?)"$/ do |folder_name|
+    @folder_name = folder_name
+    `mkdir #{folder_name}`
+end
+
+When /^I run bak with the target\-path option$/ do
+    @stdin, @stdout, @stderr, @wait_th = Open3.popen3("bin/bak -t #{@folder_name} #{@filename}")
+end
+
+Then /^it should create the file "(.*?)"$/ do |filename|
+    sleep(5)
+    File.exist?(filename).should == true
+    `rm #{@filename}`
+    `rm -rf #{@folder_name}`
+end
+
 

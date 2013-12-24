@@ -29,6 +29,12 @@ Feature: CommandLine Options to customize performance
         When I run bak with the force option then
         Then it should overwrite the existing file
 
+    Scenario: giving a target path to put the backup file into
+	Given I have the file "testfile2.txt"
+	And I have a folder in the working directory called "test"
+	When I run bak with the target-path option
+	Then it should create the file "test/testfile2.txt.bak"
+
     Scenario Outline: using regular expressions to do replacements on the filenames
         Given I have the file <filename>
         And I want to replace <pattern> with <replacement>

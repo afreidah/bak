@@ -27,6 +27,10 @@ option_parser = OptionParser.new do |opts|
         options[:prefix] = prefix
     end
 
+    opts.on("-t TARGETPATH") do |path|
+	options[:target_path] = path
+    end	
+
     opts.on("-R TEXT") do |text|
         options[:replace] ||= {}
         patternCount += 1
