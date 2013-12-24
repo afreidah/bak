@@ -22,7 +22,7 @@ module Bak
                 if @options[:postfix] then filename = _with_postfix(filename, @options[:postfix]) end
                 if @options[:prefix] then filename = _with_prefix(filename, @options[:prefix]) end
                 if @options[:replace] then filename = _with_replace(filename, @options[:replace]) end
-		if @options[:target_path] then filename = _with_target_path(filename, @options[:target_path]) end
+		            if @options[:target_path] then filename = _with_target_path(filename, @options[:target_path]) end
             end
             unless @options[:no_bak] then filename = "#{filename}.bak" end
 
@@ -48,9 +48,9 @@ module Bak
             return filename.gsub(pattern, replace)
         end
 
-	def _with_target_path(filename, target_path)
-	    return "#{target_path}/#{filename}"
-	end
+	      def _with_target_path(filename, target_path)
+	        return "#{target_path}/#{filename}"
+	      end
 
         def _get_date
             return Time.new.strftime("%Y-%m-%d")
