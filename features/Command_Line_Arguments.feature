@@ -47,6 +47,12 @@ Feature: CommandLine Options to customize performance
 		When I run bak with the target-path option and the create option
 		Then it should create the file "test/testfile2.txt.bak"
 
+	Scenario: throwing an error if the create option is used but no target_path is provided
+		Given I have the file "testfile2.txt"
+		When I run bak with the create option and no target_path option
+		Then it should generate a no target path provided error
+		
+
     Scenario Outline: using regular expressions to do replacements on the filenames
         Given I have the file <filename>
         And I want to replace <pattern> with <replacement>

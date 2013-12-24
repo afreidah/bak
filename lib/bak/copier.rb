@@ -16,7 +16,7 @@ module Bak
                 return "#{end_file}: File already exists"
             end
             if @generator[:create_path] == true
-              Dir.mkdir @generator[:target_path]
+              FileUtils::mkdir_p @generator[:target_path]
             end
             if @generator[:target_path] && !File.directory?(@generator[:target_path])
               return "#{@generator[:target_path]} directory does not exist"

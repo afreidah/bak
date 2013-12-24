@@ -48,6 +48,12 @@ option_parser.parse!
 options[:force] ||= false
 options[:no_bak] ||= false
 
+# make sure the create option is always paired with the target_path option
+if options[:create_path] && !options[:target_path]
+  STDERR.puts("please specify target directory to create with the -t option")
+  exit 1
+end
+
 if ARGV.length > 0
     filenames = ARGV
 else

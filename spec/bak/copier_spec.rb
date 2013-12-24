@@ -58,5 +58,13 @@ describe "Copier" do
 			@copier.start
 			File.exist?("#{@generator[:target_path]}/#{@file}.bak").should == true
 		end
+
+		it "should be able to create multi-level directories using the create option" do
+			@generator[:target_path] = "test/test2"
+			@generator[:create_path] = true
+			@copier = Bak::FileCopier.new(@generator, @output)
+			@copier.start
+			File.exist?("#{@generator[:target_path]}/#{@file}.bak").should == true
+		end
 	end
 end

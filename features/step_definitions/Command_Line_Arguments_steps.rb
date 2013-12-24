@@ -96,3 +96,12 @@ end
 When /^I run bak with the target\-path option and the create option$/ do
 	@stdin, @stdout, @stderr, @wait_th = Open3.popen3("bin/bak -ct #{@folder_name} #{@filename}")
 end
+
+When /^I run bak with the create option and no target_path option$/ do
+	 @stdin, @stdout, @stderr, @wait_th = Open3.popen3("bin/bak -c #{@filename}")
+end
+
+Then /^it should generate a no target path provided error$/ do
+	@output = @stderr.read()
+	@output.should include("please specify target directory to create with the -t option")
+end
