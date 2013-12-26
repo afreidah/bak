@@ -89,8 +89,10 @@ Given /^I do not have a folder in the working directory called "(.*?)"$/ do |tar
 end
 
 Then /^it should generate a target path doesn't exist error$/ do
-	@output = @stderr.read()
-	@output.should include("#{@folder_name} directory does not exist")
+  @output = @stderr.read()
+  @output.should include("#{@folder_name} directory does not exist")
+  `rm #{@filename}`
+  `rm -rf #{@folder_name}`
 end
 
 When /^I run bak with the target\-path option and the create option$/ do
@@ -104,4 +106,6 @@ end
 Then /^it should generate a no target path provided error$/ do
 	@output = @stderr.read()
 	@output.should include("please specify target directory to create with the -t option")
+  `rm #{@filename}`
+  `rm -rf #{@folder_name}`
 end
